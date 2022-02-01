@@ -8,73 +8,70 @@ use Illuminate\Support\facades\Storage;
 
 class BarangController extends Controller
 {
-    public function tampil_barang(){
+    public function tampil_barang()
+    {
         $barang = barang::all();
-
-        return view('tampil_barang', ['barang' =>$barang]);
+        return view('tampil_barang', ['barang' => $barang]);
     }
 
-   public function index(){
+    public function index()
+    {
         //mengambil data barang
         $barang = barang::all();
 
         // mengirim data barang ke view barang
+        return view('barang', ['barang' => $barang]);
+    }
 
-        return view('barang',['barang' => $barang]);
-   }
+    public function tambah()
+    {
+        return view('tambah_barang');
+    }
 
-   public function tambah(){
-       return view('tambah_barang');
-   }
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'nama_barang' => 'required',
+            'jenis_barang' => 'required',
+            'harga' => 'required'
+        ]);
 
-   public function store(Request $request)
-   {
-       $this->validate($request, [
-           'nama_barang' =>'required',
-           'jenis_barang' => 'required',
-           'harga' => 'required',
-           'gambar' => 'required'
-
-       ]);
-
-       barang::create([
-           'nama_barang' =>$request->nama_barang,
-            'jenis_barang' =>$request->jenis_barang,
+        barang::create([
+            'nama_barang' => $request->nama_barang,
+            'jenis_barang' => $request->jenis_barang,
             'harga' => $request->harga,
             'gambar' => $request->gambar
-       ]);
-       return redirect('/barang');
-   }
+        ]);
+        return redirect('/barang');
+    }
 
-   public function edit ($id) {
-       $barang = barang::find($id);
-       return view('edit_barang', ['barang'=> $barang]);
-   }
+    public function edit($id)
+    {
+        $barang = barang::find($id);
+        return view('edit_barang', ['barang' => $barang]);
+    }
 
-   public function update($id, Request $request)
-   {
-       $this->validate($request,[
-           'nama_barang' => 'required',
-           'jenis_barang' => 'required',
-           'harga' => 'required'
-       ]);
+    public function update($id, Request $request)
+    {
+        $this->validate($request, [
+            'nama_barang' => 'required',
+            'jenis_barang' => 'required',
+            'harga' => 'required'
+        ]);
 
-       $barang = Barang::find($id);
-       $barang->nama_barang = $request->nama_barang;
-       $barang->jenis_barang = $request->jenis_barang;
-       $barang->harga = $request->harga;
-       $barang->save();
+        $barang = Barang::find($id);
+        $barang->nama_barang = $request->nama_barang;
+        $barang->jenis_barang = $request->jenis_barang;
+        $barang->harga = $request->harga;
+        $barang->save();
 
-       return redirect('/barang');
-   }
+        return redirect('/barang');
+    }
 
-   public function hapus($id)
-   {
-       $barang = barang::find($id);
-       $barang->delete();
-       return redirect('/barang');
-   }
-
-
-
+    public function hapus($id)
+    {
+        $barang = barang::find($id);
+        $barang->delete();
+        return redirect('/barang');
+    }
 }
