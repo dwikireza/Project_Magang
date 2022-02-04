@@ -11,10 +11,12 @@ class Product extends Model
 
     protected $fillable = [
         'name',
-        'type',
+        'type_product_id',
         'price'
     ];
-     public function type_product(){
-         return $this->hasMany('App\TypeProduct');
-     }
+
+    public function type_product()
+    {
+        return $this->belongsTo(TypeProduct::class);
+    }
 }

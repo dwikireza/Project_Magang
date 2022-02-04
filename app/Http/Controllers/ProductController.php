@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\TypeProduct;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -16,6 +17,7 @@ class ProductController extends Controller
     {
         $products = Product::get();
 
+
         return view('product.index', compact('products'));
     }
 
@@ -26,8 +28,9 @@ class ProductController extends Controller
      */
     public function create()
     {
+        $type = TypeProduct::get();
         $isEdit = false;
-        return view('product.form', compact('isEdit'));
+        return view('product.form', compact('isEdit', 'type'));
     }
 
     /**
@@ -39,9 +42,9 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name'  => 'required',
-            'type'  => 'required',
-            'price' => 'required'
+            'name'              => 'required',
+            'type_product_id'   => 'required',
+            'price'             => 'required'
         ]);
 
         Product::create($request->all());
@@ -68,7 +71,8 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $isEdit = true;
-        return view('product.form', compact('product', 'isEdit'));
+        $type = TypeProduct::get();
+        return view('product.form', compact('product', 'isEdit', 'type'));
     }
 
     /**

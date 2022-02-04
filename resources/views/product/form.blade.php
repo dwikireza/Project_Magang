@@ -52,11 +52,18 @@
 
                     <div class="form-group">
                         <label>Jenis Barang</label>
-                        <input type="text" name="type" class="form-control"
-                            value="{{ $isEdit ? $product->type : '' }}" placeholder="Jenis barang">
-                        @if ($errors->has('type'))
+                        <select name="type_product_id" id="type_product_id">
+                            <option value="" disabled selected> Pilih type </option>
+                            @foreach ($type as $type)
+                                <option @if ($isEdit && $product->type_product_id == $type->id) selected @endif value="{{ $type->id }}"> {{ $type->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        {{-- <input type="text" name="type_product_id" class="form-control"
+                            value="{{ $isEdit ? $product->type_product_id : '' }}" placeholder="Jenis barang"> --}}
+                        @if ($errors->has('type_product_id'))
                             <div class="text-danger">
-                                {{ $errors->first('type') }}
+                                {{ $errors->first('type_product_id') }}
                             </div>
                         @endif
                     </div>

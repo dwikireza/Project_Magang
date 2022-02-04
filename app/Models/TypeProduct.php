@@ -7,12 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class TypeProduct extends Model
 {
-     use HasFactory;
-    protected $fillable = ['type_product',
-
+    use HasFactory;
+    protected $fillable = [
+        'name'
     ];
 
-    public function product(){
-        return $this->belongsTo('App\Product');
+    public function product()
+    {
+        return $this->hasOne(Product::class);
     }
 }
