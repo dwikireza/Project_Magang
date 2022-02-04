@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TypeProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,7 @@ Route::get('/tampil_barang',        [BarangController::class, 'tampil_barang']);
 
 Route::resource('product',          ProductController::class);
 
+Route::resource('typeproduct',   TypeProductController::class);
 // Best
 
 

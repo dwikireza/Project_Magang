@@ -14,4 +14,7 @@ class Product extends Model
         'type',
         'price'
     ];
+     public function type_product(){
+         return $this->hasMany('App\TypeProduct');
+     }
 }
